@@ -1,0 +1,15 @@
+/*
+/.**
+
+### not ignore ###
+!.zshrc
+
+
+
+
+
+!.idea
+!.ideavimrc
+!.tmux.conf
+
+!.config/nvim/init.vim
