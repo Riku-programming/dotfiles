@@ -1,0 +1,75 @@
+1password 7
+adobe creative cloud
+adobe illustrator 2022
+adobe lightroom cc
+adobe photoshop 2022
+adobe xd
+alfred 4
+alfred
+anaconda-navigator
+be focused pro
+bear
+bilingual news
+clion
+cheatsheet
+clipy
+dark reader for safari
+discord
+docker
+fantastical
+garageband
+goland
+goodnotes
+google chrome
+intel power gadget
+karabiner-elements
+karabiner-eventviewer
+keynote
+kindle
+kobo
+line
+ladiocast
+luna secondary
+marketspeed
+macs fan control
+mate translate
+messenger
+microsoft silverlight
+microsoft teams
+mindnode
+noteshelf
+notion
+numbers
+pages
+pocket
+popclip
+postman
+pycharm
+realforce software
+remote for mac
+rubymine
+safari
+save to pocket
+skype
+slack
+speedtest
+steelseries engine 3
+the unarchiver
+things3
+trendmicro.localized
+twitter
+utilities
+vimari
+virtualbox
+visual studio code
+webstorm
+xm trading mt4 2
+xmtradingmt5 2
+xcode
+yoink
+duet
+ibooks author
+imovie
+iterm
+mi
+zoom.us

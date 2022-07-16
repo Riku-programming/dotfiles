@@ -4,9 +4,8 @@
 ### not ignore ###
 !.zshrc
 
-
-
-
+### files
+!brew_files
 
 !.idea
 !.ideavimrc
@@ -14,3 +13,6 @@
 
 !.config/
 .config/**
+!install.sh
+!install_brew.sh
+output_brew_files.sh
