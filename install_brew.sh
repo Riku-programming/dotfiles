@@ -21,14 +21,19 @@ echo "brew tap"
 brew tap homebrew/cask-fonts
 
 echo "brew install formula"
-formulas=$(cat ./brew_files/formula.txt)
-for formula in "${formulas[@]}"; do
-    brew install "$formula" || brew upgrade "$formula"
+
+formulas=$(cat ./brew_files/formulas.txt)
+cat ./brew_files/formulas.txt | while read -r formulas
+do
+  brew install "${formulas}" || brew upgrade "${formulas}"
+  sleep 5
+  echo "Next formula Install"
 done
 
 echo Install GUI Applications
 # todo 以下コマンドの出力とcasksが少しぶれる
 casks=$(ls /Applications | sed -e "s/.app//g" |  awk '{print tolower($0)}')
+casks=$(find . -maxdepth 1  -name '')
 casks=(
     atom
     alfred
@@ -86,9 +91,9 @@ done
 # AppのIdを取得
 #app_ids=$(mas list | cut -d " " -f 1)
 echo "Install apps from the app store"
-app_ids=$(cat ./brew_files/app_ids.txt)
-for app_id in "${app_ids[@]}"; do
-    mas install "$app_id"
+cat ./brew_files/app_ids.txt | while read app_ids
+do
+  mas install "$app_ids"
 done
 
 

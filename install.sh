@@ -17,5 +17,17 @@ for f in .??*; do
     ln -snfv "${PWD}"/"$f" ~/
 done
 
-brew install neovim
-brew install tmux
+if [ "$(uname)" == 'Darwin' ]; then
+    brew install neovim
+    brew install tmux
+else
+    echo "RUN"
+fi
+
+
+# oh-my-zshやvim-plugをインストールする
+echo "PlugInstall"
+./plug_install.sh
+echo "Done"
+
+
