@@ -14,11 +14,14 @@ for f in .??*; do
     [ "$f" = ".gitconfig.local.template" ] && continue
     [ "$f" = ".gitmodules" ] && continue
     # シンボリックリンクを貼る
-    ln -snfv "${PWD}"/"$f" ~/
 done
 
+# GoLandのlaunch shortcutを作成
+sudo cp "${PWD}/Jetbrains/goland" "/usr/local/bin/goland"
+chmod +x /usr/local/bin/goland
+
 if [ "$(uname)" == 'Darwin' ]; then
-    brew install neovim
+    brew install nvim
     brew install tmux
 else
     echo "RUN"

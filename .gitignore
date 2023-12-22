@@ -13,6 +13,9 @@
 
 !.config/
 .config/**
+!Jetbrains
+!iterm2
 !install.sh
 !install_brew.sh
+!new_window_template.sh
 output_brew_files.sh

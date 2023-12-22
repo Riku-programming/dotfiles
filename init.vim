@@ -11,7 +11,7 @@ syntax on
 
 let mapleader="\<Space>"
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 Plug 'ntk148v/vim-horizon'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }

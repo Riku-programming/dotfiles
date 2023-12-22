@@ -16,7 +16,7 @@ cd dotfiles
 2. Run install_brew.sh  
 `nohup ./install_brew.sh &`
 3. Run install.sh  
-`nohup ./install.sh &`
+`sudo  ./install.sh`
 
 ---
 
@@ -64,10 +64,7 @@ ripgrep batとかを入れる
 
 ### autojump
 
-`sudo apt-get install python-is-python3 (Windows or Ubuntu) 
-git clone https://github.com/wting/autojump.git \
-~/autojump/install.py
-`
+`brew install autojump`
 
 ### fzf
 
@@ -80,9 +77,17 @@ git clone https://github.com/wting/autojump.git \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 `
 
-### ripgrep(Ubuntu)
+### ripgrep
 
-`sudo apt-get install ripgrep`
+`brew ripgrep`
+
+### [zsh-comletions](https://github.com/zsh-users/zsh-completions)
+
+`  git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions`
+
+
+### [peco](https://github.com/peco/peco)
+`brew install peco`
 ## 参考文献
 
 [ようこそdotfilesの世界へ](https://qiita.com/yutkat/items/c6c7584d9795799ee164#dotfiles%E7%94%A8%E3%81%AEgitignore%E3%81%AE%E8%A8%AD%E5%AE%9A)  

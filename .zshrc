@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump web-search fzf zsh-autosuggestions history)
+plugins=(git autojump web-search fzf zsh-autosuggestions zsh-completions history)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -118,9 +118,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-eval "$(anyenv init -)"
-export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
-eval "$(rbenv init -)"
 
 bindkey '^[[H' beginning-of-line 
 bindkey '^[[F' end-of-line 
@@ -141,7 +138,6 @@ setopt inc_append_history
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 (( ! ${+functions[p10k]} )) || p10k finalize
-eval "$(rbenv init -)"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
@@ -162,3 +158,62 @@ fvim() {
   vi "$file"
 }
 alias fv="fvim"
+
+
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=100000
+SAVEHIST=1000000
+
+# share .zshhistory
+setopt inc_append_history
+setopt share_history
+
+alias distinct='awk '\''!a[$0]++'\'
+
+# ctrl + r で過去に実行したコマンドを選択できるようにする。
+function peco-select-history() {
+    BUFFER=$(\history -n -r 1 | distinct | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-select-history
+bindkey '^H' peco-select-history
+
+# cdr
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+    add-zsh-hook chpwd chpwd_recent_dirs
+    zstyle ':completion:*' recent-dirs-insert both
+    zstyle ':chpwd:*' recent-dirs-default true
+    zstyle ':chpwd:*' recent-dirs-max 1000
+    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
+fi
+
+function peco-cdr () {
+    local selected_dir="$(cdr -l | sed -E 's/^[0-9]+ *//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+}
+zle -N peco-cdr
+bindkey '^R' peco-cdr
+
+eval "$(direnv hook zsh)"
+
+function peco-ghq-look () {
+    local ghq_roots="$(git config --path --get-all ghq.root)"
+    local selected_dir=$(ghq list --full-path | \
+        xargs -I{} stat -f "%m %N" {}/.git | sed 's/.*\([0-9]\{10\}\)/\1/' | sort -nr | \
+        sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
+        sed 's/\/.git//' | \
+        peco --prompt="cd-ghq >" --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd $(ghq list --full-path | grep --color=never -E "/$selected_dir$")"
+        zle accept-line
+    fi
+}
+
+zle -N peco-ghq-look
+bindkey '^G' peco-ghq-look
