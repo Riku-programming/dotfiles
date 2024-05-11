@@ -16,8 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-# Set list of themes to pick from when loading at random
+ZSH_THEME="powerlevel10k/powerlevel10k" # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
@@ -217,3 +216,11 @@ function peco-ghq-look () {
 
 zle -N peco-ghq-look
 bindkey '^G' peco-ghq-look
+export PATH="${PATH}:${HOME}/go/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/riku/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/riku/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/riku/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/riku/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+alias aws-sso="aws configure sso"
